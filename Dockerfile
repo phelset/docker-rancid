@@ -18,10 +18,11 @@ RUN cd /rancid-$RANCID_VERSION && ./configure --prefix=
 RUN cd /rancid-$RANCID_VERSION && make && make install
 RUN rm -rf rancid-$RANCID_VERSION
 
+RUN adduser --disabled-password --gecos '' --home /var/lib/rancid rancid
 RUN sed -e '14,15s/^#*/#/' -i /etc/rancid.conf
 RUN sed -e 's/RCSSYS=cvs; export RCSSYS/RCSSYS=git; export RCSSYS/g' -i /etc/rancid.conf
 RUN sed -e 's#BASEDIR=/var; export BASEDIR#BASEDIR=/var/lib/rancid; export BASEDIR#g' -i /etc/rancid.conf
+RUN sed -e 's#CVSROOT=$BASEDIR/CVS; export CVSROOT#CVSROOT=$BASEDIR/var; export CVSROOT#g' -i /etc/rancid.conf
 
-RUN adduser --disabled-password --gecos '' --home /var/lib/rancid rancid
-RUN sudo -u rancid -i git config --global user.email "some@email.com"
-RUN sudo -u rancid -i git config --global user.name "Some name"
+ADD run.sh /run.sh
+CMD ["/run.sh"]
