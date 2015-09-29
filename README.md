@@ -20,3 +20,18 @@
 	# clean out config differ logs
 	50 23 * * * /usr/bin/docker exec [rancid-container] /usr/bin/find /var/lib/rancid/logs -type f -mtime +2 -exec rm {} \;
 
+# docker-rancid git-remote
+
+## as root
+
+	sed -e 's/RCSSYS=git; export RCSSYS/RCSSYS=git-remote; export RCSSYS/g' -i /etc/rancid.conf
+
+## as rancid user
+
+	ssh-keygen -t rsa
+	# copy and paste the contents of ~/.ssh/id_rsa.pub to remote git-repo
+	
+	cd var/my-group/
+	git remote add [name] [url]
+	git push -u [remote name] master
+	
