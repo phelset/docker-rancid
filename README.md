@@ -22,16 +22,12 @@
 
 # docker-rancid git-remote
 
-## as root
-
-	sed -e 's/RCSSYS=git; export RCSSYS/RCSSYS=git-remote; export RCSSYS/g' -i /etc/rancid.conf
-
 ## as rancid user
 
 	ssh-keygen -t rsa
 	# copy and paste the contents of ~/.ssh/id_rsa.pub to remote git-repo
 	
-	cd var/my-group/
+	cd my-group/
 	git remote add [name] [url]
 	git push -u [remote name] master
 	
