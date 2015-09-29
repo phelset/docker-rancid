@@ -1,6 +1,4 @@
-# docker-rancid
-
-# Example setup
+# docker-rancid example setup
 
 ## as root
 
